@@ -1,6 +1,7 @@
 # Dummy Data Generator
 
 This project is a simple tool for generating dummy data for Business Intelligence (BI) projects. Use the generator tool to create data for predefined database tables and export it to a file.
+there is tow type of generation josn or sql format
 
 ## Usage
 
