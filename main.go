@@ -79,7 +79,7 @@ func createDataFile(filename string, table string, rows int) error {
 	for i := 1; i <= rows; i++ {
 		var query string
 		switch table {
-		case "assuré":
+		case "assure":
 			{
 				assure := model.GenerateRandomAssure()
 				if strings.TrimSpace(format) == "json" {
