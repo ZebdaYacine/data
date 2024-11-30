@@ -33,4 +33,4 @@ The following tables are supported by the generator:
 
 ---
 
-Created by [Your Name] | Dummy Data Generator Project
+Created by [ZEBDA Ahmed Yassine] | Dummy Data Generator Project
