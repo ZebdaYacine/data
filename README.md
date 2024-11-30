@@ -36,4 +36,4 @@ The following tables are supported by the generator:
 ## Database schema
 in mysql run the schema found in db.sql
 
-Created by [ZEBDA Ahmed Yassine] | Dummy Data Generator Project
+
