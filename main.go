@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"data/model"
+	"encoding/json"
 	"fmt"
 	"log"
 	"math"
@@ -65,37 +66,49 @@ func createDataFile(filename string, table string, rows int) error {
 	file, err := os.Create(filename)
 	percent := []string{"%", ""}
 	c := ""
+	format := "sql"
 	numAssure := 0
 	numP := 0
 	if err != nil {
 		return fmt.Errorf("error creating file: %v", err)
 	}
 	defer file.Close()
-
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Enter le form des ficher (json or sql):")
+	format, _ = reader.ReadString('\n')
 	for i := 1; i <= rows; i++ {
 		var query string
-
 		switch table {
 		case "assuré":
-			assure := model.GenerateRandomAssure()
-			query = fmt.Sprintf(
-				"INSERT INTO assuré (id,nom_prenom, dateN, lieuN, genre, lieu_res, commune, wilaya, region, num_tel, profession, secteur, revenu, etat_civil) "+
-					"VALUES (%d,'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s');\n",
-				i,
-				assure.NomPrenom,
-				assure.DateN,
-				assure.LieuN,
-				assure.Genre,
-				assure.LieuRes,
-				assure.Commune,
-				assure.Wilaya,
-				assure.Region,
-				assure.NumTel,
-				assure.Profession,
-				assure.Secteur,
-				assure.Revenu,
-				assure.EtatCivil,
-			)
+			{
+				assure := model.GenerateRandomAssure()
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(assure)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf(
+						"INSERT INTO assuré (id,nom_prenom, dateN, lieuN, genre, lieu_res, commune, wilaya, region, num_tel, profession, secteur, revenu, etat_civil) "+
+							"VALUES (%d,'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s');\n",
+						i,
+						assure.NomPrenom,
+						assure.DateN,
+						assure.LieuN,
+						assure.Genre,
+						assure.LieuRes,
+						assure.Commune,
+						assure.Wilaya,
+						assure.Region,
+						assure.NumTel,
+						assure.Profession,
+						assure.Secteur,
+						assure.Revenu,
+						assure.EtatCivil,
+					)
+				}
+			}
 		case "maladie":
 			{
 				if i >= len(model.MaladiesChroniques) {
@@ -114,15 +127,23 @@ func createDataFile(filename string, table string, rows int) error {
 				}
 
 				maladie := model.GenerateRandomMaladie(mld, c)
-				query = fmt.Sprintf(
-					"INSERT INTO maladie (id,code_maladie, libelle, taux, type_maladie) "+
-						"VALUES (%d,'%s', '%s', '%s');\n",
-					i,
-					maladie.CodeMaladie,
-					maladie.Libelle,
-					maladie.Taux,
-					//maladie.TypeMaladie,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(maladie)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf(
+						"INSERT INTO maladie (id,code_maladie, libelle, taux, type_maladie) "+
+							"VALUES (%d,'%s', '%s', '%s');\n",
+						i,
+						maladie.CodeMaladie,
+						maladie.Libelle,
+						maladie.Taux,
+						//maladie.TypeMaladie,
+					)
+				}
 			}
 		case "medicament":
 			{
@@ -143,32 +164,47 @@ func createDataFile(filename string, table string, rows int) error {
 				}
 
 				midecament := model.GenerateRandomMidecament(md, c)
-				query = fmt.Sprintf(
-					"INSERT INTO medicament (id,nom, famille, TR, marque) "+
-						"VALUES (%d,'%s', '%s', '%s', '%s');\n",
-					i,
-					midecament.Nom,
-					midecament.Famille,
-					midecament.TR,
-					midecament.Marque,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(midecament)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf(
+						"INSERT INTO medicament (id,nom, famille, TR, marque) "+
+							"VALUES (%d,'%s', '%s', '%s', '%s');\n",
+						i,
+						midecament.Nom,
+						midecament.Famille,
+						midecament.TR,
+						midecament.Marque,
+					)
+				}
 			}
 		case "prestation":
 			{
 				prestation := model.GenerateRandomPrestation()
-				query = fmt.Sprintf(
-					"INSERT INTO prestation (id, libelle, type_pres) "+
-						"VALUES (%d,'%s', '%s');\n",
-					i,
-					prestation.Libelle,
-					prestation.TypePres,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(prestation)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf(
+						"INSERT INTO prestation (id, libelle, type_pres) "+
+							"VALUES (%d,'%s', '%s');\n",
+						i,
+						prestation.Libelle,
+						prestation.TypePres,
+					)
+				}
 			}
 		case "assurance_maladie_prestation":
 			{
 				if i == 1 {
 					reader := bufio.NewReader(os.Stdin)
-
 					fmt.Println("Enter le nomber des assures:")
 					numInput, _ := reader.ReadString('\n')
 					numAssure, _ = strconv.Atoi(strings.TrimSpace(numInput))
@@ -178,14 +214,22 @@ func createDataFile(filename string, table string, rows int) error {
 					numP, _ = strconv.Atoi(strings.TrimSpace(numInput))
 				}
 				amp := model.GenerateRandomAssuranceMaladiePrestation(numAssure, numP)
-				query = fmt.Sprintf("INSERT INTO assurance_maladie_prestation (id, assure_id, maladie_id,prestation_id,prix_prest) "+
-					"VALUES (%d,%d,%d,%d,'%s');\n",
-					i,
-					amp.AssureID,
-					amp.MaladieID,
-					amp.PrestationID,
-					amp.PrixPrest,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(amp)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf("INSERT INTO assurance_maladie_prestation (id, assure_id, maladie_id,prestation_id,prix_prest) "+
+						"VALUES (%d,%d,%d,%d,'%s');\n",
+						i,
+						amp.AssureID,
+						amp.MaladieID,
+						amp.PrestationID,
+						amp.PrixPrest,
+					)
+				}
 			}
 		case "assurance_maladie_medicament":
 			{
@@ -196,24 +240,40 @@ func createDataFile(filename string, table string, rows int) error {
 					numAssure, _ = strconv.Atoi(strings.TrimSpace(numInput))
 				}
 				amm := model.GenerateRandomAssuranceMaladieMidecament(numAssure)
-				query = fmt.Sprintf("INSERT INTO assurance_maladie_medicament (id, assure_id, maladie_id,medicament_id,prix_medic) "+
-					"VALUES (%d,%d,%d,%d,'%s');\n",
-					i,
-					amm.AssureID,
-					amm.MaladieID,
-					amm.MedicamentID,
-					amm.PrixMedic,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(amm)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf("INSERT INTO assurance_maladie_medicament (id, assure_id, maladie_id,medicament_id,prix_medic) "+
+						"VALUES (%d,%d,%d,%d,'%s');\n",
+						i,
+						amm.AssureID,
+						amm.MaladieID,
+						amm.MedicamentID,
+						amm.PrixMedic,
+					)
+				}
 			}
 		case "maladie_medicament":
 			{
 				mm := model.GenerateRandomMaladieMidecament()
-				query = fmt.Sprintf("INSERT INTO maladie_medicament (id, maladie_id, medicament_id) "+
-					"VALUES (%d,%d,%d);\n",
-					i,
-					mm.MaladieID,
-					mm.MedicamentID,
-				)
+				if strings.TrimSpace(format) == "json" {
+					jsonData, err := json.Marshal(mm)
+					if err != nil {
+						log.Fatal(err)
+					}
+					query = string(jsonData)
+				} else {
+					query = fmt.Sprintf("INSERT INTO maladie_medicament (id, maladie_id, medicament_id) "+
+						"VALUES (%d,%d,%d);\n",
+						i,
+						mm.MaladieID,
+						mm.MedicamentID,
+					)
+				}
 			}
 		default:
 			return fmt.Errorf("unsupported table name: %s", table)
