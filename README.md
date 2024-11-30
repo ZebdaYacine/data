@@ -4,31 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dummy Data Generator - README</title>
-   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .commands {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .table-list {
+            background-color: #eef;
+            border: 1px solid #ccd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Dummy Data Generator - README</h1>
-    </header>
-    <main>
-        <h2>Overview</h2>
-        <p>
-            This dummy data generator allows you to create simple, random data for various database tables. It is designed 
-            to be used in BI (Business Intelligence) projects for testing and simulation purposes.
-        </p>
+    <h1>Dummy Data Generator</h1>
+    <p>This project is a simple tool for generating dummy data for Business Intelligence (BI) projects. Use the generator tool to create data for predefined database tables and export it to a file.</p>
 
-        <h2>Usage</h2>
-        <p>Run the generator using the following syntax:</p>
-        <pre><code>.\generator.exe -t table_name_in_db -r nbr_lines -f output_file.txt</code></pre>
-        <p>Here is a breakdown of the command-line arguments:</p>
-        <ul>
-            <li><code>-t</code>: The name of the table for which data should be generated.</li>
-            <li><code>-r</code>: The number of rows of data to generate.</li>
-            <li><code>-f</code>: The file where the generated data will be saved.</li>
-        </ul>
+    <h2>Usage</h2>
+    <p>To use the generator, clone the project and run the following command:</p>
+    <div class="commands">
+        .\generator.exe -t <strong>table_name_in_db</strong> -r <strong>nbr_lines</strong> -f <strong>output_file.txt</strong>
+    </div>
 
-        <h2>Available Tables</h2>
-        <p>The following tables are supported for data generation:</p>
+    <p>Example:</p>
+    <div class="commands">
+        .\generator.exe -t assuré -r 100 -f output_assuré.txt
+    </div>
+
+    <h2>Available Tables</h2>
+    <p>The following tables are supported by the generator:</p>
+    <div class="table-list">
         <ul>
             <li><strong>assuré</strong></li>
             <li><strong>maladie</strong> (29 predefined entries)</li>
@@ -38,16 +70,16 @@
             <li><strong>assurance_maladie_medicament</strong></li>
             <li><strong>maladie_medicament</strong></li>
         </ul>
+    </div>
 
-        <h2>Example</h2>
-        <p>To generate 100 lines of data for the table <code>assuré</code> and save it to <code>output.txt</code>:</p>
-        <pre><code>.\generator.exe -t assuré -r 100 -f output.txt</code></pre>
+    <h2>Notes</h2>
+    <ul>
+        <li>Ensure the database schema matches the table names for seamless data insertion.</li>
+        <li>The generated file is in a simple text format, which can be parsed for database import.</li>
+    </ul>
 
-        <h2>Output</h2>
-        <p>The generated data will be saved in the specified file in plain text format.</p>
-    </main>
     <footer>
-        <p>Dummy Data Generator &copy; 2024</p>
+        <p>Created by [Your Name] | Dummy Data Generator Project</p>
     </footer>
 </body>
 </html>
