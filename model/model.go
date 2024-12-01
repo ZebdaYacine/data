@@ -36,10 +36,14 @@ type Prestation struct {
 }
 
 type AssuranceMaladiePrestation struct {
-	AssureID     int
-	MaladieID    int
-	PrestationID int
-	PrixPrest    string
+	AssureID       int
+	MaladieID      int
+	PrestationID   int
+	PrixPrest      string
+	DatePrestation string
+	Commune        string
+	Wilaya         string
+	Region         string
 }
 
 type AssuranceMaladieMedicament struct {
@@ -47,6 +51,10 @@ type AssuranceMaladieMedicament struct {
 	MaladieID    int
 	MedicamentID int
 	PrixMedic    string
+	Date         string
+	Commune      string
+	Wilaya       string
+	Region       string
 }
 
 type MaladieMedicament struct {

@@ -69,6 +69,8 @@ func createDataFile(filename string, table string, rows int) error {
 	format := "sql"
 	numAssure := 0
 	numP := 0
+	d := ","
+	b := "["
 	if err != nil {
 		return fmt.Errorf("error creating file: %v", err)
 	}
@@ -87,7 +89,13 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
 					query = fmt.Sprintf(
 						"INSERT INTO assuré (id,nom_prenom, dateN, lieuN, genre, lieu_res, commune, wilaya, region, num_tel, profession, secteur, revenu, etat_civil) "+
@@ -132,7 +140,13 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
 					query = fmt.Sprintf(
 						"INSERT INTO maladie (id,code_maladie, libelle, taux, type_maladie) "+
@@ -169,7 +183,13 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
 					query = fmt.Sprintf(
 						"INSERT INTO medicament (id,nom, famille, TR, marque) "+
@@ -190,7 +210,13 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
 					query = fmt.Sprintf(
 						"INSERT INTO prestation (id, libelle, type_pres) "+
@@ -219,15 +245,25 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
-					query = fmt.Sprintf("INSERT INTO assurance_maladie_prestation (id, assure_id, maladie_id,prestation_id,prix_prest) "+
-						"VALUES (%d,%d,%d,%d,'%s');\n",
+					query = fmt.Sprintf("INSERT INTO assurance_maladie_prestation (id, assure_id, maladie_id,prestation_id,prix_prest,commune, wilaya, region,date_prestation) "+
+						"VALUES (%d,%d,%d,%d,'%s','%s','%s','%s','%s');\n",
 						i,
 						amp.AssureID,
 						amp.MaladieID,
 						amp.PrestationID,
 						amp.PrixPrest,
+						amp.Commune,
+						amp.Wilaya,
+						amp.Region,
+						amp.DatePrestation,
 					)
 				}
 			}
@@ -245,15 +281,25 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
-					query = fmt.Sprintf("INSERT INTO assurance_maladie_medicament (id, assure_id, maladie_id,medicament_id,prix_medic) "+
-						"VALUES (%d,%d,%d,%d,'%s');\n",
+					query = fmt.Sprintf("INSERT INTO assurance_maladie_medicament (id, assure_id, maladie_id,medicament_id,prix_medic,commune, wilaya, region,date_achat_medic) "+
+						"VALUES (%d,%d,%d,%d,'%s','%s','%s','%s','%s');\n",
 						i,
 						amm.AssureID,
 						amm.MaladieID,
 						amm.MedicamentID,
 						amm.PrixMedic,
+						amm.Commune,
+						amm.Wilaya,
+						amm.Region,
+						amm.Date,
 					)
 				}
 			}
@@ -265,7 +311,13 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					query = string(jsonData)
+					if i == rows {
+						d = "]"
+					}
+					if i > 1 {
+						b = ""
+					}
+					query = b + string(jsonData) + d
 				} else {
 					query = fmt.Sprintf("INSERT INTO maladie_medicament (id, maladie_id, medicament_id) "+
 						"VALUES (%d,%d,%d);\n",
@@ -278,13 +330,11 @@ func createDataFile(filename string, table string, rows int) error {
 		default:
 			return fmt.Errorf("unsupported table name: %s", table)
 		}
-
 		_, err = file.WriteString(query)
 		if err != nil {
 			return fmt.Errorf("error writing to file: %v", err)
 		}
 	}
-
 	fmt.Printf("Data successfully written to %s\n", filename)
 	return nil
 
