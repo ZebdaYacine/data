@@ -43,7 +43,7 @@ var (
 		{"Constantine", "Est", []string{"Constantine", "Hamma Bouziane", "El Khroub"}},
 		{"Médéa", "Nord", []string{"Médéa", "Aïn Dehlil", "Aïn Bouziane"}},
 		{"Mostaganem", "Nord", []string{"Mostaganem", "Sidi Lakhdar", "Ouled Boudjemaa"}},
-		{"M'Sila", "Sud", []string{"M'Sila", "Boudouaou", "Beniane"}},
+		{"MSila", "Sud", []string{"M'Sila", "Boudouaou", "Beniane"}},
 		{"Mascara", "Ouest", []string{"Mascara", "El Bordj", "Sidi Khaled"}},
 		{"Ouargla", "Sud", []string{"Ouargla", "El Guerrara", "Touggourt"}},
 		{"Oran", "Ouest", []string{"Oran", "Aïn El Türck", "Es Senia"}},
@@ -184,7 +184,7 @@ var (
 	Libelles = []string{
 		"Consultation médicale", "Analyse de laboratoire", "Radiographie", "Chirurgie mineure",
 		"Échographie", "Examen clinique", "Opération chirurgicale", "Consultation en cardiologie",
-		"Test sanguin", "Consultation ophtalmologique", "Imagerie par résonance magnétique", 
+		"Test sanguin", "Consultation ophtalmologique", "Imagerie par résonance magnétique",
 		"Test de grossesse", "Analyse génétique", "Consultation en neurologie", "Rééducation physique",
 	}
 	Types = []string{
