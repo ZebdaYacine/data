@@ -150,12 +150,12 @@ func createDataFile(filename string, table string, rows int) error {
 				} else {
 					query = fmt.Sprintf(
 						"INSERT INTO maladie (id,code_maladie, libelle, taux, type_maladie) "+
-							"VALUES (%d,'%s', '%s', '%s');\n",
+							"VALUES (%d,'%s', '%s', '%s', '%s');\n",
 						i,
 						maladie.CodeMaladie,
 						maladie.Libelle,
 						maladie.Taux,
-						//maladie.TypeMaladie,
+						maladie.Libelle,
 					)
 				}
 			}
