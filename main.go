@@ -140,7 +140,7 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					if i == rows {
+					if i == 28 {
 						d = "]"
 					}
 					if i > 1 {
@@ -183,7 +183,7 @@ func createDataFile(filename string, table string, rows int) error {
 					if err != nil {
 						log.Fatal(err)
 					}
-					if i == rows {
+					if i == 81 {
 						d = "]"
 					}
 					if i > 1 {

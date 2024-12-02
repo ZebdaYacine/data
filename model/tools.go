@@ -135,20 +135,30 @@ func GenerateRandomPrestation() Prestation {
 }
 
 func GenerateRandomAssuranceMaladiePrestation(a int, p int) AssuranceMaladiePrestation {
+	selectedWilaya := Wilayas[rand.Intn(len(Wilayas))]
 	return AssuranceMaladiePrestation{
-		AssureID:     rand.Intn(a),
-		MaladieID:    rand.Intn(29),
-		PrestationID: rand.Intn(p),
-		PrixPrest:    strconv.FormatInt(rand.Int63n(100000), 10),
+		AssureID:       rand.Intn(a),
+		MaladieID:      rand.Intn(29),
+		PrestationID:   rand.Intn(p),
+		PrixPrest:      strconv.FormatInt(rand.Int63n(100000), 10),
+		Commune:        selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
+		Wilaya:         selectedWilaya.Name,
+		Region:         selectedWilaya.Region,
+		DatePrestation: generateDataFormat(),
 	}
 }
 
 func GenerateRandomAssuranceMaladieMidecament(a int) AssuranceMaladieMedicament {
+	selectedWilaya := Wilayas[rand.Intn(len(Wilayas))]
 	return AssuranceMaladieMedicament{
 		AssureID:     rand.Intn(a),
 		MaladieID:    rand.Intn(29),
 		MedicamentID: rand.Intn(81),
 		PrixMedic:    strconv.FormatInt(rand.Int63n(10000), 10),
+		Commune:      selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
+		Wilaya:       selectedWilaya.Name,
+		Region:       selectedWilaya.Region,
+		Date:         generateDataFormat(),
 	}
 }
 

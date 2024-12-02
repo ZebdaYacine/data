@@ -1,1 +1,0 @@
-{"MaladieID":10,"MedicamentID":70}{"MaladieID":9,"MedicamentID":38}
