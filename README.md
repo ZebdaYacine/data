@@ -12,16 +12,16 @@ To use the generator, clone the project and run the following command:
 
 Example:
 
-.\generator.exe -t assuré -r 100 -f output_assuré.txt
+.\generator.exe -t assure -r 100 -f output_assure.txt
 
 
 ## Available Tables
 
 The following tables are supported by the generator:
 
-- **assuré**
-- **maladie** (29 predefined entries)
-- **medicament** (81 predefined entries)
+- **assure**
+- **maladie** (28 predefined entries)
+- **medicament** (80 predefined entries)
 - **prestation**
 - **assurance_maladie_prestation**
 - **assurance_maladie_medicament**
