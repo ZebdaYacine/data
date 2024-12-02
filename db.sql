@@ -1,5 +1,5 @@
-drop database maladie_chronique;
-create maladie_chronique;
+DROP DATABASE IF EXISTS maladie_chronique;
+create DATABASE maladie_chronique;
 use maladie_chronique;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
