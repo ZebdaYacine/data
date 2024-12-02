@@ -137,9 +137,9 @@ func GenerateRandomPrestation() Prestation {
 func GenerateRandomAssuranceMaladiePrestation(a int, p int) AssuranceMaladiePrestation {
 	selectedWilaya := Wilayas[rand.Intn(len(Wilayas))]
 	return AssuranceMaladiePrestation{
-		AssureID:       rand.Intn(a),
-		MaladieID:      rand.Intn(29),
-		PrestationID:   rand.Intn(p),
+		AssureID:       rand.Intn(a-1+1) + 1,
+		MaladieID:      rand.Intn(28-1+1) + 1,
+		PrestationID:   rand.Intn(p-1+1) + 1,
 		PrixPrest:      strconv.FormatInt(rand.Int63n(100000), 10),
 		Commune:        selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
 		Wilaya:         selectedWilaya.Name,
@@ -151,9 +151,9 @@ func GenerateRandomAssuranceMaladiePrestation(a int, p int) AssuranceMaladiePres
 func GenerateRandomAssuranceMaladieMidecament(a int) AssuranceMaladieMedicament {
 	selectedWilaya := Wilayas[rand.Intn(len(Wilayas))]
 	return AssuranceMaladieMedicament{
-		AssureID:     rand.Intn(a),
-		MaladieID:    rand.Intn(29),
-		MedicamentID: rand.Intn(81),
+		AssureID:     rand.Intn(a-1+1) + 1,
+		MaladieID:    rand.Intn(28-1+1) + 1,
+		MedicamentID: rand.Intn(81-1+1) + 1,
 		PrixMedic:    strconv.FormatInt(rand.Int63n(10000), 10),
 		Commune:      selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
 		Wilaya:       selectedWilaya.Name,
@@ -164,7 +164,7 @@ func GenerateRandomAssuranceMaladieMidecament(a int) AssuranceMaladieMedicament 
 
 func GenerateRandomMaladieMidecament() MaladieMedicament {
 	return MaladieMedicament{
-		MaladieID:    rand.Intn(29),
-		MedicamentID: rand.Intn(81),
+		MaladieID:    rand.Intn(28-1+1) + 1,
+		MedicamentID: rand.Intn(81-1+1) + 1,
 	}
 }
