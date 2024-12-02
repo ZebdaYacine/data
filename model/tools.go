@@ -27,12 +27,10 @@ func generateCaseString(value string) string {
 	}
 }
 
-func generateDataFormat() string {
-	min := 1945
-	max := 2005
+func generateDataFormat(min int, max int) string {
 	cases := []string{"yyyy-mm-dd", "yyyy/mm/dd", "yyyy\\mm\\dd", "dd\\mm\\yyyy", "dd-mm-yyyy", "dd/mm/yyyy"}
-	day := rand.Intn(28)
-	mounth := rand.Intn(12)
+	day := rand.Intn(28-1+1) + 1
+	mounth := rand.Intn(12-1+1) + 1
 	year := rand.Intn(max-min+1) + min
 	switch cases[rand.Intn(len(cases))] {
 	case "yyyy-mm-dd":
@@ -53,11 +51,11 @@ func generateDataFormat() string {
 		}
 	case "yyyy\\mm\\dd":
 		{
-			return strconv.Itoa(year) + "\\" + strconv.Itoa(mounth) + "\\" + strconv.Itoa(day)
+			return strconv.Itoa(year) + "\\\\" + strconv.Itoa(mounth) + "\\\\" + strconv.Itoa(day)
 		}
 	case "dd\\mm\\yyyy":
 		{
-			return strconv.Itoa(year) + "\\" + strconv.Itoa(mounth) + "\\" + strconv.Itoa(day)
+			return strconv.Itoa(year) + "\\\\" + strconv.Itoa(mounth) + "\\\\" + strconv.Itoa(day)
 		}
 	default:
 		return ""
@@ -94,7 +92,7 @@ func GenerateRandomAssure() Assure {
 	Lname := BaseLastNames[rand.Intn(len(BaseLastNames))]
 	return Assure{
 		NomPrenom:  generateCaseString(Fname) + " " + generateCaseString(Lname),
-		DateN:      generateDataFormat(),
+		DateN:      generateDataFormat(1945, 2005),
 		LieuN:      selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
 		Genre:      Genres[rand.Intn(len(Genres))],
 		LieuRes:    selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
@@ -144,7 +142,7 @@ func GenerateRandomAssuranceMaladiePrestation(a int, p int) AssuranceMaladiePres
 		Commune:        selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
 		Wilaya:         selectedWilaya.Name,
 		Region:         selectedWilaya.Region,
-		DatePrestation: generateDataFormat(),
+		DatePrestation: generateDataFormat(2000, 2023),
 	}
 }
 
@@ -158,7 +156,7 @@ func GenerateRandomAssuranceMaladieMidecament(a int) AssuranceMaladieMedicament 
 		Commune:      selectedWilaya.Communes[rand.Intn(len(selectedWilaya.Communes))],
 		Wilaya:       selectedWilaya.Name,
 		Region:       selectedWilaya.Region,
-		Date:         generateDataFormat(),
+		Date:         generateDataFormat(2000, 2023),
 	}
 }
 
