@@ -104,7 +104,7 @@ func GenerateRandomAssure() Assure {
 		NumTel:     generateMobileNumber(),
 		Profession: Professions[rand.Intn(len(Professions))],
 		Secteur:    Secteurs[rand.Intn(len(Secteurs))],
-		Revenu:     strconv.Itoa(rand.Intn(1000000000-100000+1) + 100000),
+		Revenu:     strconv.Itoa(rand.Intn(1000000-10000+1) + 10000),
 		EtatCivil:  EtatCivils[rand.Intn(len(EtatCivils))],
 	}
 }
