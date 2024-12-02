@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math"
 	"math/rand"
 	"os"
 	"strconv"
@@ -164,19 +163,8 @@ func createDataFile(filename string, table string, rows int) error {
 				if i >= len(model.Medicaments) {
 					break
 				}
-				r := rand.Intn(len(model.Medicaments))
 				md := model.Medicaments[i]
-				g := r - i
-				absValue := math.Abs(float64(g))
-				if absValue < 10 {
-					f, _ := strconv.ParseFloat(md.TR, 64)
-					md.TR = strconv.FormatFloat(f*100, 'f', 0, 64)
-					index := rand.Intn(len(percent))
-					c = percent[index]
-				} else {
-					c = ""
-				}
-
+				md.TR = strconv.Itoa(rand.Intn(100000.0-10000.0+1) + 10000.0)
 				midecament := model.GenerateRandomMidecament(md, c)
 				if strings.TrimSpace(format) == "json" {
 					jsonData, err := json.Marshal(midecament)
